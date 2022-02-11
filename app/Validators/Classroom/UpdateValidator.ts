@@ -7,9 +7,14 @@ export default class UpdateValidator {
     name: schema.string.optional(),
     subject: schema.string.optional(),
     userId: schema.number.optional([rules.exists({ table: 'users', column: 'id' })]),
+    bannerId: schema.number.optional([
+      rules.required(),
+      rules.exists({ column: 'id', table: 'media' }),
+    ]),
   })
 
   public messages = {
     'userId.exists': 'esse usuário não existe',
+    'bannerId.exists': 'esse banner não existe',
   }
 }

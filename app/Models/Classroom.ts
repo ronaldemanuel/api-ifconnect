@@ -9,6 +9,7 @@ import {
 } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 import Post from './Post'
+import Media from './Media'
 
 export default class Classroom extends BaseModel {
   @column({ isPrimary: true })
@@ -22,6 +23,12 @@ export default class Classroom extends BaseModel {
 
   @column()
   public userId: number
+
+  @column()
+  public bannerId: number
+
+  @belongsTo(() => Media, { foreignKey: 'bannerId' })
+  public bannerPhoto: BelongsTo<typeof Media>
 
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>

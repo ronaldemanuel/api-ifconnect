@@ -7,6 +7,7 @@ export default class StoreValidator {
     name: schema.string({}, [rules.required()]),
     subject: schema.string({}, [rules.required()]),
     userId: schema.number([rules.required()]),
+    bannerId: schema.number([rules.required(), rules.exists({ column: 'id', table: 'media' })]),
   })
   public messages = {
     'name.required': 'o nome é obrigatorio',
