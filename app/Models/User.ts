@@ -9,8 +9,11 @@ import {
   beforeFind,
   ModelQueryBuilderContract,
   beforeFetch,
+  manyToMany,
+  ManyToMany,
 } from '@ioc:Adonis/Lucid/Orm'
 import Media from './Media'
+import Classroom from './Classroom'
 
 export enum Position {
   TEACHER = 'teacher',
@@ -51,6 +54,9 @@ export default class User extends BaseModel {
 
   @column()
   public rememberMeToken?: string
+
+  @manyToMany(() => Classroom, { pivotTable: 'user_classrooms' })
+  public classrooms: ManyToMany<typeof Classroom>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -33,6 +33,9 @@ export default class Classroom extends BaseModel {
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
 
+  @manyToMany(() => User, { pivotTable: 'user_classrooms' })
+  public members: ManyToMany<typeof User>
+
   @manyToMany(() => Post, { pivotTable: 'post_classrooms' })
   public posts: ManyToMany<typeof Post>
 
