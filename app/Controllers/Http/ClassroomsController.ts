@@ -22,12 +22,6 @@ export default class ClassroomsController {
   public async store({ request, response }: HttpContextContract) {
     const data = await request.validate(StoreValidator)
     try {
-      const user = await User.findOrFail(data.userId)
-      if (!user.isTeacher) {
-        return response
-          .status(400)
-          .json({ error: { message: 'o usuário selecionado não é um professor' } })
-      }
       const classroom = await Classroom.create(data)
       return classroom
     } catch (error) {
