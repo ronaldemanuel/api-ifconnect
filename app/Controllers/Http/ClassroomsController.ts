@@ -1,6 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Classroom from 'App/Models/Classroom'
-import User from 'App/Models/User'
 import StoreValidator from 'App/Validators/Classroom/StoreValidator'
 import UpdateValidator from 'App/Validators/Classroom/UpdateValidator'
 
@@ -25,7 +24,7 @@ export default class ClassroomsController {
       const classroom = await Classroom.create(data)
       return classroom
     } catch (error) {
-      return response.status(400).json({ error: { message: 'professor não encontrado' } })
+      return response.badRequest({ message: 'falha ao criar grupo' })
     }
   }
 
@@ -34,7 +33,7 @@ export default class ClassroomsController {
       const classroom = await Classroom.findOrFail(params.id)
       return classroom
     } catch (error) {
-      return response.status(404).json({ error: { message: 'classrrom not found' } })
+      return response.notFound({ message: 'grupo não encontrado' })
     }
   }
 
@@ -45,7 +44,7 @@ export default class ClassroomsController {
       classroom.merge(data)
       return classroom
     } catch (error) {
-      return response.status(404).json({ error: { message: 'classroom not found' } })
+      return response.notFound({ message: 'grupo não encontrado' })
     }
   }
 
@@ -54,7 +53,7 @@ export default class ClassroomsController {
       const classroom = await Classroom.findOrFail(params.id)
       await classroom.delete()
     } catch (error) {
-      return response.status(400).json({ error: { message: 'classroom not found' } })
+      return response.notFound({ message: 'grupo não encontrado' })
     }
   }
 }
