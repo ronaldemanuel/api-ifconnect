@@ -22,26 +22,38 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async () => {
   return { hello: 'world' }
 })
+
 Route.resource('users', 'UsersController')
   .middleware({ update: ['auth'], destroy: ['auth'], index: ['auth'], show: ['auth'] })
   .apiOnly()
+
 Route.resource('classrooms', 'ClassroomsController')
   .middleware({ '*': ['auth'] })
   .apiOnly()
+
 Route.post('/auth', 'AuthController.store')
+
 Route.resource('/media', 'MediaController')
   .middleware({ '*': ['auth'] })
   .apiOnly()
+
 Route.resource('events', 'EventsController')
   .middleware({ '*': ['auth'] })
   .apiOnly()
+
 Route.resource('posts', 'PostsController')
   .middleware({ '*': ['auth'] })
   .apiOnly()
+
 Route.resource('classrooms.posts', 'ClassroomPostsController')
   .middleware({ '*': ['auth'] })
   .apiOnly()
+
 Route.group(() => {
   Route.post('posts/:post_id/likes', 'PostLikesController.store')
   Route.delete('posts/:post_id/likes', 'PostLikesController.destroy')
 }).middleware(['auth'])
+
+Route.resource('users.classrooms', 'UserClassroomsController')
+  .middleware({ '*': ['auth'] })
+  .apiOnly()
