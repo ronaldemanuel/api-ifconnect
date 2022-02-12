@@ -31,6 +31,8 @@ Route.resource('classrooms', 'ClassroomsController')
   .middleware({ '*': ['auth'] })
   .apiOnly()
 
+Route.get('classrooms/:id/members', 'ClassroomsController.members').middleware(['auth'])
+
 Route.post('/auth', 'AuthController.store')
 
 Route.resource('/media', 'MediaController')

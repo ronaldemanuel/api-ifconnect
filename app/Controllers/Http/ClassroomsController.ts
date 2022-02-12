@@ -10,6 +10,15 @@ export default class ClassroomsController {
     return classrooms
   }
 
+  public async members({ params, response }: HttpContextContract) {
+    try {
+      const classroom = await Classroom.findOrFail(params.id)
+      return classroom.related('members').query()
+    } catch (error) {
+      return response.notFound({ message: 'grupo não encontrado' })
+    }
+  }
+
   public async store({ request, response }: HttpContextContract) {
     const data = await request.validate(StoreValidator)
     try {
