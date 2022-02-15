@@ -4,18 +4,22 @@ import StoreValidator from 'App/Validators/Post/StoreValidator'
 import UpdateValidator from 'App/Validators/Post/UpdateValidator'
 
 export default class PostsController {
-  public async index({ request }: HttpContextContract) {
-    const { limit, offset = 1 } = request.qs()
-    const posts = limit
-      ? await Post.query()
-        .whereDoesntHave('classroom', () => { // eslint-disable-line prettier/prettier
-          return // eslint-disable-line prettier/prettier
-        }) // eslint-disable-line prettier/prettier
-        .paginate(offset, limit) // eslint-disable-line prettier/prettier
-      : await Post.query().whereDoesntHave('classroom', () => { // eslint-disable-line prettier/prettier
-        return // eslint-disable-line prettier/prettier
-      }) // eslint-disable-line prettier/prettier
-    return posts
+  public async index({ auth }: HttpContextContract) {
+    if (auth.user) {
+      const user = auth.user
+      const classrooms = await user.related('classrooms').query()
+
+      let classroomPosts: Post[] = []
+      classrooms.forEach(async (c) => {
+        const posts = await Post.query().where('classroom_id', '=', c.id)
+        classroomPosts.push(...posts)
+      })
+
+      // Do not delete this line
+      const classroomPostsTest = await Post.query().where('classroom_id', '=', classrooms[0].id)
+
+      return classroomPosts
+    }
   }
 
   public async store({ request }: HttpContextContract) {
