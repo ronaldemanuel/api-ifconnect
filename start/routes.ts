@@ -64,3 +64,8 @@ Route.resource('comments', 'CommentsController')
   .middleware({ '*': ['auth'] })
   .apiOnly()
 Route.get('comments/:post_id', 'CommentsController.indexByPost').middleware(['auth'])
+
+Route.group(() => {
+  Route.post('comments/:comment_id/likes', 'CommentLikesController.store')
+  Route.delete('comments/:comment_id/likes', 'CommentLikesController.destroy')
+}).middleware(['auth'])

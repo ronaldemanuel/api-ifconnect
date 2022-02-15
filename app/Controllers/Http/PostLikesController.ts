@@ -9,7 +9,7 @@ export default class PostLikesController {
         await post.related('usersWhoLike').attach([auth.user.id])
       }
     } catch (error) {
-      return response.status(400).send({ error: { message: 'post not found' } })
+      return response.status(404).send({ error: { message: 'post not found' } })
     }
   }
   public async destroy({ params, auth, response }: HttpContextContract) {
@@ -19,7 +19,7 @@ export default class PostLikesController {
         await post.related('usersWhoLike').detach([auth.user.id])
       }
     } catch (error) {
-      return response.status(400).send({ error: { message: 'post not found' } })
+      return response.status(404).send({ error: { message: 'post not found' } })
     }
   }
 }
