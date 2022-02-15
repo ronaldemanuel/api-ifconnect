@@ -52,6 +52,12 @@ export default class User extends BaseModel {
   @belongsTo(() => Media, { foreignKey: 'profileId' })
   public profilePhoto: BelongsTo<typeof Media>
 
+  @column()
+  public bannerId: number
+
+  @belongsTo(() => Media, { foreignKey: 'bannerId' })
+  public bannerImage: BelongsTo<typeof Media>
+
   @column({ serializeAs: null })
   public password: string
 
