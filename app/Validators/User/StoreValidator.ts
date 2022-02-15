@@ -16,6 +16,7 @@ export default class StoreValidator {
     password: schema.string({}, [rules.required(), rules.minLength(8)]),
     position: schema.enum.optional(Object.values(Position)),
     gender: schema.string({}, [rules.required()]),
+    bio: schema.string.optional({}, [rules.maxLength(600)]),
   })
   public messages = {
     'name.required': 'o nome é obrigatório',
@@ -27,5 +28,6 @@ export default class StoreValidator {
     'password.required': 'a senha é obrigatória',
     'password.minLength': 'a senha precisa ter no mínimo 8 caracteres',
     'gender.required': 'o campo gênero é obrigatório',
+    'bio.maxLenth': 'a bio deve ter no máximo 600 caracteres',
   }
 }

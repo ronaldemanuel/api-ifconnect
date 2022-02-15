@@ -12,11 +12,13 @@ export default class UpdateValidator {
     profileId: schema.number.optional([rules.exists({ column: 'id', table: 'media' })]),
     password: schema.string.optional({}, [rules.minLength(8)]),
     isTeacher: schema.boolean.optional(),
+    bio: schema.string.optional({}, [rules.maxLength(600)]),
   })
   public messages = {
     'profileId.exists': 'a foto de perfil não foi enviada corretamente',
     'email.email': 'o campo precisa ser formatado como um email',
     'email.unique': 'este endereço de email já existe',
     'password.minLength': 'a senha precisa ter no minimo 8 caracteres',
+    'bio.maxLenth': 'a bio deve ter no máximo 600 caracteres',
   }
 }
