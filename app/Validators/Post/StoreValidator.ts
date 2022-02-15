@@ -8,10 +8,16 @@ export default class StoreValidator {
   public schema = schema.create({
     description: schema.string({}, [rules.required()]),
     userId: schema.number([rules.required(), rules.exists({ column: 'id', table: 'users' })]),
+    classroomId: schema.number([
+      rules.required(),
+      rules.exists({ column: 'id', table: 'classrooms' }),
+    ]),
   })
   public messages = {
     'description.required': 'é necessário passar uma descrição para o post',
     'userId.required': 'é necessário que o post seja associado à um usuário',
     'userId.exists': 'o id relacionado ao post deve ser relacionado a um usuário válido',
+    'classroomId.required': 'é necessário que o post seja associado à um grupo',
+    'classroomId.exists': 'o id relacionado ao post deve ser relacionado a um grupo válido',
   }
 }

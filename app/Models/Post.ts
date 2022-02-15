@@ -22,17 +22,20 @@ export default class Post extends BaseModel {
   @column()
   public description: string
 
-  @column()
+  @column({ columnName: 'user_id' })
   public userId: number
 
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
 
+  @column({ columnName: 'classroom_id' })
+  public classroomId: number
+
+  @belongsTo(() => Classroom)
+  public classroom: BelongsTo<typeof Classroom>
+
   @manyToMany(() => Media, { pivotTable: 'post_media' })
   public media: ManyToMany<typeof Media>
-
-  @manyToMany(() => Classroom, { pivotTable: 'post_classrooms' })
-  public classroom: ManyToMany<typeof Classroom>
 
   @manyToMany(() => User, { serializeAs: null, pivotTable: 'like_posts' })
   public usersWhoLike: ManyToMany<typeof User>

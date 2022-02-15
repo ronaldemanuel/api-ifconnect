@@ -36,9 +36,6 @@ export default class Classroom extends BaseModel {
   @manyToMany(() => User, { pivotTable: 'user_classrooms' })
   public members: ManyToMany<typeof User>
 
-  @manyToMany(() => Post, { pivotTable: 'post_classrooms' })
-  public posts: ManyToMany<typeof Post>
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
