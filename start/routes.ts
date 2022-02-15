@@ -59,3 +59,8 @@ Route.group(() => {
 Route.resource('users.classrooms', 'UserClassroomsController')
   .middleware({ '*': ['auth'] })
   .apiOnly()
+
+Route.resource('comments', 'CommentsController')
+  .middleware({ '*': ['auth'] })
+  .apiOnly()
+Route.get('comments/:post_id', 'CommentsController.indexByPost').middleware(['auth'])
