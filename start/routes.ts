@@ -69,3 +69,7 @@ Route.group(() => {
   Route.post('comments/:comment_id/likes', 'CommentLikesController.store')
   Route.delete('comments/:comment_id/likes', 'CommentLikesController.destroy')
 }).middleware(['auth'])
+
+Route.resource('users.followers', 'FollowersController')
+  .middleware({ '*': ['auth'] })
+  .apiOnly()
