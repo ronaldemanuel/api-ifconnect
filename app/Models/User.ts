@@ -67,6 +67,16 @@ export default class User extends BaseModel {
   @manyToMany(() => Classroom, { pivotTable: 'user_classrooms' })
   public classrooms: ManyToMany<typeof Classroom>
 
+  @manyToMany(() => User, {
+    pivotTable: 'followers',
+    pivotTimestamps: true,
+    pivotRelatedForeignKey: 'followed_id',
+  })
+  public followers: ManyToMany<typeof User>
+
+  @belongsTo(() => User, { foreignKey: 'followed_id' })
+  public user: BelongsTo<typeof User>
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
